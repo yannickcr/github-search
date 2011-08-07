@@ -1,0 +1,23 @@
+<!doctype html>
+<html>
+ <head>
+  <meta charset="UTF-8" />
+  <title>Search - GitHub</title>
+  <link rel="stylesheet" href="/public/medias/styles/main.css" media="screen" />
+ </head>
+ <body>
+  <header id="branding">
+   <h1><a rel="home" accesskey="1" href="http://github.com" title="GitHub">GitHub</a></h1>
+   <form id="search">
+    <input type="search" id="q" name="q" />
+    <button type="submit">Rechercher</button>
+   </form>
+  </header>
+  <div id="container">
+   <div id="content">{% block content %}
+{% end %}
+   </div>
+  {% block footer %}{% end %}
+  </div>
+ </body>
+</html>

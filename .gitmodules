@@ -1,0 +1,6 @@
+[submodule "node_modules/node-t"]
+	path = node_modules/node-t
+	url = git://github.com/skid/node-t.git
+[submodule "node_modules/choreographer"]
+	path = node_modules/choreographer
+	url = git://github.com/laughinghan/choreographer.git

@@ -1,0 +1,11 @@
+{% extends "layout/common.html" %}
+{% block content %}
+    <ol>{% for repo in data.repositories %}
+     <li>
+      <a href="/{{ repo.username }}/{{ repo.name }}">
+       <h2>{{ repo.username }} / {{ repo.name }}</h2>
+       <p>{{ repo.description }}</p>
+       <p class="details">{{ repo.size }} | {{ repo.forks }} forks | {{ repo.watchers }} watchers | {{ repo.pushed }}</p>
+      </a>
+     </li>{% end %}
+    </ol>{% end %}
