@@ -3,7 +3,11 @@
     <h2>Salut !</h2>
     <section id="timeline">
      <header><h1>Timeline</h1></header>
-     timeline
+     <img src="https://chart.googleapis.com/chart?cht=bvs&chd=t:{{ data.commits|join:',' }}&chs=950x100&chco=336699&chds=0,{{ data.commitMax }}" alt="" />
+    </section>
+    <section id="contributors">
+     <header><h1>Contributors impact</h1></header>
+     <img src="https://chart.googleapis.com/chart?cht=p&chd=t:{{ data.contributions.commits|join:',' }}&chl={{ data.contributions.labels|join:'\|' }}&chs=400x200&chco=336699,CACACA" alt="" />
     </section>
     <section id="contributors">
      <header><h1>Contributors</h1></header>{% for user in data.contributors %}
@@ -11,11 +15,7 @@
       <a href="https://github.com/{{ user.login }}">
        <img src="https://secure.gravatar.com/avatar/{{ user.gravatar_id }}?s=140&amp;d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-140.png" alt="{{ user.name }}" />
        <h2>{{ user.name }}</h2>
-       <p>{{ user.company }}{% if user.company %} | {% end %}{{ user.location }}</p>
+       <p>{{ user.company }}{% if user.company %} | {% endif %}{{ user.location }}</p>
       </a>
-     </li>{% end %}
-    </section>
-    <section id="contributors">
-     <header><h1>Contributors impact</h1></header>
-     graph
-    </section>{% end %}
+     </li>{% endfor %}
+    </section>{% endblock %}
