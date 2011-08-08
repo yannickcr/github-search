@@ -2,22 +2,24 @@
 <html>
  <head>
   <meta charset="UTF-8" />
-  <title>Search - GitHub</title>
+  <title>{{ title }}</title>
   <link rel="stylesheet" href="/public/medias/styles/main.css" media="screen" />
  </head>
  <body>
   <header id="branding">
-   <h1><a rel="home" accesskey="1" href="http://github.com" title="GitHub">GitHub</a></h1>
-   <form id="search">
-    <input type="search" id="q" name="q" />
-    <button type="submit">Rechercher</button>
-   </form>
-  </header>
-  <div id="container">
-   <div id="content">{% block content %}
-{% endblock %}
+   <div class="inner">
+    <h1><a rel="home" accesskey="1" href="/" title="GitHub - Social Coding">GitHub</a></h1>
+    {% include "partials/search.html" %}
    </div>
-  {% block footer %}{% endblock %}
+  </header>
+  <div id="container" class="row">
+   <div class="grid-16">
+    <div class="row">{% block content %}{% endblock %}
+    </div>
+   </div>{% block footer %}{% endblock %}
   </div>
+  <footer id="footer">
+   <p>&copy Copyright Bla Bla Bla</p>
+  </footer>
  </body>
 </html>

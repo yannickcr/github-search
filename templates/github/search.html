@@ -1,11 +1,18 @@
 {% extends "layout/common.html" %}
 {% block content %}
-    <ol>{% for repo in data.repositories %}
-     <li>
-      <a href="/{{ repo.username }}/{{ repo.name }}">
-       <h2>{{ repo.username }} / {{ repo.name }}</h2>
-       <p>{{ repo.description }}</p>
-       <p class="details">{{ repo.size }} | {{ repo.forks }} forks | {{ repo.watchers }} watchers | {{ repo.pushed }}</p>
-      </a>
-     </li>{% end %}
-    </ol>{% end %}
+    <div class="grid-16">
+     <section id="results" class="block alt1">
+      <ol>{% for repo in data.repositories %}
+      <li>
+       <a class="container" href="/{{ repo.username }}/{{ repo.name }}">
+        <h2>{{ repo.username }} / {{ repo.name }}</h2>
+        <p class="descr">{{ repo.description }}</p>
+        <p class="details">{{ repo.size|toBytes:2 }} | {{ repo.forks }} forks | {{ repo.watchers }} watchers</p>
+       </a>
+      </li>{% endfor %}{% if data.repositories.length == 0 %}
+      <li class="message warning">
+      	No matching results.
+      </li>{% endif %}
+     </ol>
+     </section>
+    </div>{% endblock %}

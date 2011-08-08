@@ -6,6 +6,7 @@ http = require('http'),
 net = require('net'),
 fs = require('fs'),
 util = require('util'),
+crypto = require('crypto'),
 tpl = require('strobe'),
 router = require('choreographer').router(),
 mime = require('mime').mime,
@@ -27,6 +28,14 @@ tpl.Filters.join = function(array, glue){
 	var data = [];
 	for (var i in array) data.push(array[i]);
 	return data.join(glue);
+}
+
+tpl.Filters.toBytes = function(size, precision){
+	var labels = [' kB', ' MB', ' GB'], p = 0;
+	if (size >= 1073741824) p = 3;
+	else if(size >= 1048576) p = 2;
+	else if(size >= 1024) p = 1;
+	return Math.round(Math.pow(10, precision) * size / Math.pow(1024, p)) / Math.pow(10, precision) + labels[p];
 }
 
 render = function(template, data, res){

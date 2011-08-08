@@ -1,0 +1,185 @@
+/*----------------------------------------------------------
+	Main CSS
+
+	Project:		Search - GitHub
+	Author:			Yannick Croissant
+----------------------------------------------------------*/
+
+@import "reset.css";
+@import "layout.css";
+@import "block.css";
+@import "form.css";
+@import "button.css";
+@import "link.css";
+@import "message.css";
+
+/* ================================
+ * Fonts
+ * LIBERATION, by Red Hat Inc. (Licenced under GNU v.2)
+ * ================================*/
+@font-face { font-family: Liberation; src: url(/public/medias/fonts/LiberationSerif-Regular.ttf) format('truetype'); }
+@font-face { font-family: Liberation; font-weight:bold; src: url(/public/medias/fonts/LiberationSerif-Bold.ttf) format('truetype'); }
+@font-face { font-family: Liberation; font-style:italic; src: url(/public/medias/fonts/LiberationSerif-Italic.ttf) format('truetype'); }
+@font-face { font-family: Liberation; font-style:italic; font-weight:bold; src: url(/public/medias/fonts/LiberationSerif-BoldItalic.ttf) format('truetype'); }
+
+/* ================================
+ * !Layout
+ * ================================*/
+
+#container {
+	margin:0 auto;
+	min-height:300px;
+}
+
+/*
+ * !Branding
+ */
+#branding {
+	height:90px;
+	margin:0 auto 10px;
+	position:relative;
+	width:940px;
+}
+
+#branding .inner {
+	padding:20px 10px;
+}
+
+#branding h1 {
+	display:inline-block;
+}
+
+#branding h1 a {
+	background:url(/public/medias/images/logo.png);
+	background-size:100%;
+	display:inline-block;
+	height:45px;
+	text-indent:-9999em;
+	width:100px;
+}
+
+/*
+ * !Footer
+ */
+#footer {
+	background:#F8F8F8;
+	border:solid #E0E0E0;
+	border-width:1px 0;
+	margin:20px 0;
+}
+
+#footer p {
+	color:#888;
+	font-size:11px;
+	margin:20px auto;
+	text-align:center;
+	width:950px;
+}
+
+/*
+ * !Search
+ */
+#search {
+	position:absolute;
+	top:20px;
+	left:150px;
+}
+
+#search #q {
+	font-size:17px;
+	margin-right:10px;
+}
+
+/*
+ * !Results
+ */
+#results a {
+	border-top:1px solid #E1E1E2;
+	margin-top:1px;
+	padding:10px;
+	overflow:hidden;
+}
+
+#results li:first-child a { border:0; }
+
+#results a:focus, #results a:hover, #results a:active {
+	background:-moz-linear-gradient(   bottom, #F5F5F5, #FFF);
+	background:-ms-linear-gradient(    bottom, #F5F5F5, #FFF);
+	background:-o-linear-gradient(     bottom, #F5F5F5, #FFF);
+	background:-webkit-linear-gradient(bottom, #F5F5F5, #FFF);
+	background:linear-gradient(        bottom, #F5F5F5, #FFF);
+}
+
+#results h2 {
+	color:#4183C4;
+	font-size:16px;
+	font-weight:bold;
+	margin:10px 0;
+}
+
+#results a:focus h2, #results a:hover h2, #results a:active h2 { text-decoration:underline; }
+
+#results .descr {
+	color:#3C3C3C;
+	font-size:12px;
+	margin:10px 0;
+}
+
+#results .details {
+	color:#888;
+	font-size:11px;
+}
+
+/*
+ * !Repo
+ */
+#repo h2 {
+	color:#666;
+	font-size:20px;
+	font-weight:bold;
+	margin:20px 10px;
+}
+
+#repo h2 a:first-child { font-weight:normal; }
+
+#repo p {
+	font-size:12px;
+	margin:10px;
+}
+
+/*
+ * !Contributors
+ */
+#contributors a {
+	border-top:1px solid #E1E1E2;
+	margin-top:1px;
+	padding:10px;
+	overflow:hidden;
+}
+
+#contributors li:first-child a { border:0; }
+
+#contributors a:focus, #contributors a:hover, #contributors a:active {
+	background:-moz-linear-gradient(   bottom, #F5F5F5, #FFF);
+	background:-ms-linear-gradient(    bottom, #F5F5F5, #FFF);
+	background:-o-linear-gradient(     bottom, #F5F5F5, #FFF);
+	background:-webkit-linear-gradient(bottom, #F5F5F5, #FFF);
+	background:linear-gradient(        bottom, #F5F5F5, #FFF);
+}
+
+#contributors img {
+	float:left;
+	margin:0 10px 0 0;
+}
+
+#contributors h2 {
+	color:#000;
+	font-size:20px;
+	font-weight:bold;
+	padding:10px 0;
+}
+
+#contributors p {
+	color:#888;
+	font-size:11px;
+}
