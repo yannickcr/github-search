@@ -107,7 +107,8 @@ repo = function(req, res, user, repo){
 		'/api/v2/json/commits/list/' + user + '/' + repo + '/master?page=3'
 	], function(data){
 		
-		if (!data.commits || !data.contributors) {
+		// Display an error if we  lost the repository, commits or contributors
+		if (!data.repository || !data.commits || !data.contributors) {
 			return render('partials/error.html', {
 				errors: data.error,
 				title: user + ' / ' + repo + ' - GitHub',
@@ -123,7 +124,7 @@ repo = function(req, res, user, repo){
 			firstCommit = resetTime(new Date(data.commits[data.commits.length - 1].committed_date)).getTime();
 				
 		// Init the empty commit array
-		for (var i = lastCommit, j = firstCommit; i >= j; i = i - 86400000){
+		for (var i = firstCommit, j = lastCommit; i <= j; i = i + 86400000){
 			var date = resetTime(new Date(i)).getTime();
 			data.commitsByDay[date] = 0;
 		}
