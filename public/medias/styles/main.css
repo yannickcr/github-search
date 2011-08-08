@@ -14,15 +14,6 @@
 @import "message.css";
 
 /* ================================
- * Fonts
- * LIBERATION, by Red Hat Inc. (Licenced under GNU v.2)
- * ================================*/
-@font-face { font-family: Liberation; src: url(/public/medias/fonts/LiberationSerif-Regular.ttf) format('truetype'); }
-@font-face { font-family: Liberation; font-weight:bold; src: url(/public/medias/fonts/LiberationSerif-Bold.ttf) format('truetype'); }
-@font-face { font-family: Liberation; font-style:italic; src: url(/public/medias/fonts/LiberationSerif-Italic.ttf) format('truetype'); }
-@font-face { font-family: Liberation; font-style:italic; font-weight:bold; src: url(/public/medias/fonts/LiberationSerif-BoldItalic.ttf) format('truetype'); }
-
-/* ================================
  * !Layout
  * ================================*/
 
@@ -31,18 +22,42 @@
 	min-height:300px;
 }
 
+#content.load {
+	position:relative;
+}
+
+#content.load:before {
+	background:rgba(255, 255, 255, .6) url(/public/medias/images/loader.gif) no-repeat 50% 130px;
+	content:'';
+	display:block;
+	height:100%;
+	left:0;
+	opacity:1;
+	position:absolute;
+	top:0;
+	width:100%;
+	z-index:1;
+}
+
 /*
  * !Branding
  */
 #branding {
-	height:90px;
-	margin:0 auto 10px;
-	position:relative;
-	width:940px;
+	background:-moz-linear-gradient(   top, #FFF, #F5F5F5 89px, #FFF 89px);
+	background:-ms-linear-gradient(    top, #FFF, #F5F5F5 89px, #FFF 89px);
+	background:-o-linear-gradient(     top, #FFF, #F5F5F5 89px, #FFF 89px);
+	background:-webkit-linear-gradient(top, #FFF, #F5F5F5 89px, #FFF 89px);
+	background:linear-gradient(        top, #FFF, #F5F5F5 89px, #FFF 89px);
+	border-bottom:1px solid #DFDFDF;
+	margin-bottom:10px;
 }
 
 #branding .inner {
+	height:50px;
+	margin:0 auto;
 	padding:20px 10px;
+	position:relative;
+	width:920px;
 }
 
 #branding h1 {
@@ -54,6 +69,7 @@
 	background-size:100%;
 	display:inline-block;
 	height:45px;
+	overflow:hidden;
 	text-indent:-9999em;
 	width:100px;
 }
@@ -88,6 +104,7 @@
 #search #q {
 	font-size:17px;
 	margin-right:10px;
+	-webkit-appearance:textfield;
 }
 
 /*
@@ -177,9 +194,15 @@
 	font-size:20px;
 	font-weight:bold;
 	padding:10px 0;
+	overflow:hidden;
+	text-overflow:ellipsis;
+	white-space:nowrap;
 }
 
 #contributors p {
 	color:#888;
 	font-size:11px;
+	overflow:hidden;
+	text-overflow:ellipsis;
+	white-space:nowrap;
 }

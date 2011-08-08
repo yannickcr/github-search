@@ -1,3 +1,4 @@
     <form id="search" class="form" method="get" action="/search/">
-     <input class="form-grid-6" type="search" id="q" name="q" value="{% if search %}{{ search }}{% endif %}" /><button type="submit">Search</button>
+     <input class="form-grid-6" type="search" id="q" autofocus="true" name="q" value="{% if search %}{{ search }}{% endif %}" /><button type="submit">Search</button>
     </form>
+    <script>GIT.exec.push('initSearch')</script>

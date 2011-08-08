@@ -11,11 +11,6 @@ html {
 
 body {
 	background:#FFF;
-	background:-moz-linear-gradient(   top, #FFF, #F5F5F5 89px, #FFF 89px, #FFF 90px, #DFDFDF 90px, #DFDFDF 91px, #FFF 91px);
-	background:-ms-linear-gradient(    top, #FFF, #F5F5F5 89px, #FFF 89px, #FFF 90px, #DFDFDF 90px, #DFDFDF 91px, #FFF 91px);
-	background:-o-linear-gradient(     top, #FFF, #F5F5F5 89px, #FFF 89px, #FFF 90px, #DFDFDF 90px, #DFDFDF 91px, #FFF 91px);
-	background:-webkit-linear-gradient(top, #FFF, #F5F5F5 89px, #FFF 89px, #FFF 90px, #DFDFDF 90px, #DFDFDF 91px, #FFF 91px);
-	background:linear-gradient(        top, #FFF, #F5F5F5 89px, #FFF 89px, #FFF 90px, #DFDFDF 90px, #DFDFDF 91px, #FFF 91px);
 	color:#3C3C3C;
 	font:10px Helvetica, Arial, Freesans, Clean, sans-serif;
 	min-height:100%;

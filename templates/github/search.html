@@ -1,4 +1,4 @@
-{% extends "layout/common.html" %}
+{% extends layout %}
 {% block content %}
     <div class="grid-16">
      <section id="results" class="block alt1">
@@ -15,4 +15,5 @@
       </li>{% endif %}
      </ol>
      </section>
+     <script>GIT.exec.push('initResults')</script>
     </div>{% endblock %}

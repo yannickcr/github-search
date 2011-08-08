@@ -4,6 +4,33 @@
   <meta charset="UTF-8" />
   <title>{{ title }}</title>
   <link rel="stylesheet" href="/public/medias/styles/main.css" media="screen" />
+  <script>
+  	var GIT = {
+  		exec: [],
+  		load: function(j, c){
+			var s = document.createElement('script');
+			s.async = true;
+			s.src = j.shift();
+			if (j.length || typeof c == 'function'){
+				s.onload = s.onreadystatechange = function(){
+					if (this.readyState && this.readyState != 'loaded' && this.readyState != 'complete') return;
+					if (j.length) GIT.load(j, c);
+					else c();
+				};
+			}
+			var t = document.getElementsByTagName('script')[0];
+			t.parentNode.insertBefore(s, t);
+		}
+	};
+	GIT.load([
+		'/public/medias/scripts/Mootools.Core.js',
+		'/public/medias/scripts/Mootools.More.js',
+		'/public/medias/scripts/amplify.store.js',
+		'/public/medias/scripts/history.adapter.mootools.js',
+		'/public/medias/scripts/history.js',
+		'/public/medias/scripts/main.js'
+	], function() { GIT.execFn(); });
+  </script>
  </head>
  <body>
   <header id="branding">
@@ -14,9 +41,9 @@
   </header>
   <div id="container" class="row">
    <div class="grid-16">
-    <div class="row">{% block content %}{% endblock %}
+    <div id="content" class="row">{% block content %}{% endblock %}
     </div>
-   </div>{% block footer %}{% endblock %}
+   </div>
   </div>
   <footer id="footer">
    <p>&copy Copyright Bla Bla Bla</p>

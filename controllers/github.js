@@ -5,31 +5,64 @@
 query = function(paths, callback, data){
 	var path = paths.shift()
 		data = data || {};
-	http.get({
-		host: 'github.com',
-		port: 80,
-		path: path
-	}, function (res){
-		var newData = '';
-		res.setEncoding('utf8')
-		res.on('data', function(chunk){
-			newData += chunk;
-		})
-		res.on('end', function() {
-			newData = JSON.parse(newData);
-			for (var attr in newData) {
-				if (data[attr]) data[attr] = data[attr].concat(newData[attr]);
-				else data[attr] = newData[attr];
+		file = 'tmp/' + path.replace(/[^a-z0-9-]/gi, '-');
+		now = Date.now();
+	
+	fs.stat(file, function(err, stats){
+		// File error, read feed
+		if (err) readFeed();
+		else {
+			// Check file
+			var filemTime = new Date(stats.mtime).getTime();
+			// Too old, read feed
+			if (now - filemTime > 1000*60*10) readFeed();
+			// Read file
+			else {
+				fs.readFile(file, 'utf8', function (err, newData) {
+					if (err) sys.puts(err);
+					processing(newData);
+				});
 			}
-			
-			if (paths.length) query(paths, callback, data);
-			else if (typeof callback == 'function') callback(data);
-		});
-	}).on('error', function(err){
-		sys.puts(err);
+		}
 	});
+	
+	function readFeed(){
+		http.get({
+			host: 'github.com',
+			port: 80,
+			path: path
+		}, function (res){
+			var newData = '';
+			res.setEncoding('utf8')
+			res.on('data', function(chunk){
+				newData += chunk;
+			})
+			res.on('end', function() {
+				fs.writeFile(file, newData, function (err) {
+					if (err) sys.puts(err);
+				});
+				processing(newData);
+			});
+		}).on('error', function(err){
+			sys.puts(err);
+		});
+	}
+	
+	function processing(newData){
+		newData = JSON.parse(newData);
+		for (var attr in newData) {
+			if (data[attr]) data[attr] = data[attr].concat(newData[attr]);
+			else data[attr] = typeof newData[attr] == 'object' ? newData[attr] : [newData[attr]];
+		}
+				
+		if (paths.length) query(paths, callback, data);
+		else if (typeof callback == 'function') callback(data);
+	}
 }
 
+/*
+ * Reset the hours, minutes, seconds and milliseconds of a Date object
+ */
 resetTime = function(date){
 	date.setHours(0);
 	date.setMinutes(0);
@@ -42,7 +75,10 @@ resetTime = function(date){
  * Render the home page
  */
 home = function(req, res){
-	render('github/home.html', {title: 'Search - GitHub'}, res);
+	render('github/home.html', {
+		title: 'Search - GitHub',
+		layout: util.isAjax(req) ? 'layout/empty.html' : 'layout/common.html'
+	}, res);
 }
 
 /*
@@ -50,7 +86,12 @@ home = function(req, res){
  */
 search = function(req, res, search){
 	query(['/api/v2/json/repos/search/' + search], function(data){
-		render('github/search.html', {title: 'Search:' + search + ' - GitHub', search: search, data: data}, res);
+		render('github/search.html', {
+			title: 'Search:' + search + ' - GitHub',
+			layout: util.isAjax(req) ? 'layout/empty.html' : 'layout/common.html',
+			search: search,
+			data: data
+		}, res);
 	});
 }
 
@@ -64,7 +105,16 @@ repo = function(req, res, user, repo){
 		'/api/v2/json/commits/list/' + user + '/' + repo + '/master?page=1',
 		'/api/v2/json/commits/list/' + user + '/' + repo + '/master?page=2',
 		'/api/v2/json/commits/list/' + user + '/' + repo + '/master?page=3'
-	], function(data){	
+	], function(data){
+		
+		if (!data.commits || !data.contributors) {
+			return render('partials/error.html', {
+				errors: data.error,
+				title: user + ' / ' + repo + ' - GitHub',
+				layout: util.isAjax(req) ? 'layout/empty.html' : 'layout/common.html'
+			}, res);
+		}
+			
 		/*
 		 * Commits graph
 		 */
@@ -97,13 +147,16 @@ repo = function(req, res, user, repo){
 				data.contributions.commits.push(data.contributors[i].contributions);
 			} else others += data.contributors[i].contributions;
 		}
-		
 		if (others != 0) {
 			data.contributions.labels.push('Others');
 			data.contributions.commits.push(others);
 		}
 		
-		render('github/repo.html', {title: user + '/' + repo + ' - GitHub', data: data}, res);
+		render('github/repo.html', {
+			title: user + ' / ' + repo + ' - GitHub',
+			layout: util.isAjax(req) ? 'layout/empty.html' : 'layout/common.html',
+			data: data
+		}, res);
 	});
 }
 

@@ -9,9 +9,12 @@ router.get(/search\/(.*)/, function(req, res, search){
 	// Redirect /search/?q=foo to /search/foo
 	var query = url.parse(req.url, true).query;
 	if (query.q) {
-		res.statusCode = 302;
-		res.setHeader('Location', '/search/' + query.q);
-		res.end();
+		var body = http.STATUS_CODES[301] + '. Redirecting to ' + query.q;
+		res.writeHead(301, {
+			'Content-Type': 'text/plain',
+			'Location': query.q
+		});
+		res.end(body);
 	}
 	github.search(req, res, search);
 });
