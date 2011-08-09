@@ -20,7 +20,7 @@ query = function(paths, callback, data){
 			else {
 				fs.readFile(file, 'utf8', function (err, newData) {
 					if (err) sys.puts(err);
-					processing(newData);
+					processing(JSON.parse(newData));
 				});
 			}
 		}
@@ -38,21 +38,24 @@ query = function(paths, callback, data){
 				newData += chunk;
 			})
 			res.on('end', function() {
-				fs.writeFile(file, newData, function (err) {
-					if (err) sys.puts(err);
-				});
-				processing(newData);
+				var newDataP = JSON.parse(newData);
+				// Do not cache feeds with error
+				if (!newDataP.error) {
+					fs.writeFile(file, newData, function (err) {
+						if (err) sys.puts(err);
+					});
+				}
+				processing(newDataP);
 			});
 		}).on('error', function(err){
 			sys.puts(err);
 		});
 	}
 	
-	function processing(newData){
-		newData = JSON.parse(newData);
-		for (var attr in newData) {
-			if (data[attr]) data[attr] = data[attr].concat(newData[attr]);
-			else data[attr] = typeof newData[attr] == 'object' ? newData[attr] : [newData[attr]];
+	function processing(newDataP){
+		for (var attr in newDataP) {
+			if (data[attr]) data[attr] = data[attr].concat(newDataP[attr]);
+			else data[attr] = typeof newDataP[attr] == 'object' ? newDataP[attr] : [newDataP[attr]];
 		}
 				
 		if (paths.length) query(paths, callback, data);

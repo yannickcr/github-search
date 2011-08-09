@@ -41,7 +41,7 @@ button:focus, button:hover, button:active,
 .button:focus, .button:hover, .button:active {
 	border-color:#2E63A5;
 	
-	background:#ECECEC;
+	background:#3570B8;
 	background:-moz-linear-gradient(   bottom, #3570B8, #5E9AE2);
 	background:-ms-linear-gradient(    bottom, #3570B8, #5E9AE2);
 	background:-o-linear-gradient(     bottom, #3570B8, #5E9AE2);

@@ -19,6 +19,9 @@
 
 #container {
 	margin:0 auto;
+}
+
+#content {
 	min-height:300px;
 }
 
@@ -43,6 +46,7 @@
  * !Branding
  */
 #branding {
+	background:#F5F5F5;
 	background:-moz-linear-gradient(   top, #FFF, #F5F5F5 89px, #FFF 89px);
 	background:-ms-linear-gradient(    top, #FFF, #F5F5F5 89px, #FFF 89px);
 	background:-o-linear-gradient(     top, #FFF, #F5F5F5 89px, #FFF 89px);
